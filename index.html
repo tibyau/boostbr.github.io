@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aumente seu alcance nas redes sociais com seguidores reais. Instagram, TikTok, YouTube, Twitter/X e Kwai. Entrega rápida e garantida.">
+    <meta name="keywords" content="seguidores, instagram, tiktok, youtube, twitter, kwai, redes sociais, marketing digital">
+    <meta name="author" content="SocialBoost">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="BoostBR - Aumente seu Alcance nas Redes Sociais">
+    <meta property="og:description" content="Seguidores reais para Instagram, TikTok, YouTube, Twitter/X e Kwai. Entrega em até 2 horas!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://seu-usuario.github.io/social-followers-store/">
+    
+    <title>BoostBR - Aumente seu Alcance | Seguidores Reais</title>
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#8B00FF',
+                        secondary: '#FF00FF',
+                        accent: '#00D4FF',
+                        dark: '#0a0a0f',
+                        darker: '#050508',
+                        card: '#12121a'
+                    },
+                    fontFamily: {
+                        sans: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        glow: {
+                            'from': { boxShadow: '0 0 20px #8B00FF' },
+                            'to': { boxShadow: '0 0 40px #FF00FF' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a0a0f 0%, #12121a 50%, #0a0a0f 100%);
+            color: #ffffff;
+            font-family: system-ui, -apple-system, sans-serif;
+            overflow-x: hidden;
+        }
+        
+        /* Particle Background */
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #8B00FF;
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.6;
+        }
+        
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, #8B00FF, #FF00FF, #00D4FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Neon Button */
+        .neon-button {
+            background: linear-gradient(135deg, #8B00FF, #FF00FF);
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(139, 0, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .neon-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 40px rgba(139, 0, 255, 0.8);
+        }
+        
+        /* Card Styles */
+        .service-card {
+            background: linear-gradient(145deg, #12121a, #1a1a2e);
+            border: 1px solid rgba(139, 0, 255, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #8B00FF, #FF00FF, #00D4FF);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(139, 0, 255, 0.5);
+            box-shadow: 0 20px 40px rgba(139, 0, 255, 0.2);
+        }
+        
+        /* Scroll Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
+        }
+        
+        /* Cart Badge */
+        .cart-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #FF00FF;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        /* FAQ Accordion */
+        .faq-item {
+            background: rgba(18, 18, 26, 0.8);
+            border: 1px solid rgba(139, 0, 255, 0.2);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            background: rgba(139, 0, 255, 0.1);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 20px;
+        }
+        
+        .faq-answer.active {
+            max-height: 500px;
+            padding: 0 20px 20px;
+        }
+        
+        /* Testimonial Carousel */
+        .testimonial-card {
+            background: linear-gradient(145deg, #12121a, #1a1a2e);
+            border: 1px solid rgba(139, 0, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        /* Counter Animation */
+        .counter {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #8B00FF, #FF00FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Cart Modal */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .cart-modal.active {
+            display: flex;
+        }
+        
+        .cart-content {
+            background: linear-gradient(145deg, #12121a, #1a1a2e);
+            border: 1px solid rgba(139, 0, 255, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        /* Step Icons */
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #8B00FF, #FF00FF);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 20px;
+        }
+        
+        /* Price Calculator */
+        .price-display {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #00D4FF;
+        }
+        
+        /* Protection */
+        .protection-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 15, 0.98);
+            z-index: 1500;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .mobile-menu.active {
+            display: flex;
+        }
+        
+        @media (max-width: 768px) {
+            .counter {
+                font-size: 2rem;
+            }
+            
+            .neon-button {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Background -->
+    <div id="particles"></div>
+    
+    <!-- Protection Overlay -->
+    <div class="protection-overlay" id="protection">
+        <h2 class="text-2xl font-bold mb-4 gradient-text">⚠️ Direitos Reservados</h2>
+        <p class="text-gray-400">Este site é protegido. Todas as tentativas de cópia serão registradas.</p>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-dark/90 backdrop-blur-lg border-b border-primary/20">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <a href="#" class="text-2xl font-bold gradient-text">BoostBR</a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#services" class="hover:text-primary transition-colors">Serviços</a>
+                    <a href="#how-it-works" class="hover:text-primary transition-colors">Como Funciona</a>
+                    <a href="#testimonials" class="hover:text-primary transition-colors">Depoimentos</a>
+                    <a href="#payment" class="hover:text-primary transition-colors">Pagamento</a>
+                    <a href="#faq" class="hover:text-primary transition-colors">FAQ</a>
+                    <a href="#contact" class="hover:text-primary transition-colors">Contato</a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button onclick="openCart()" class="relative p-2 hover:text-primary transition-colors">
+                        🛒
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </button>
+                    
+                    <button onclick="toggleMobileMenu()" class="md:hidden p-2">
+                        ☰
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-3xl">✕</button>
+        <div class="flex flex-col items-center space-y-8 text-xl">
+            <a href="#services" onclick="toggleMobileMenu()" class="hover:text-primary transition-colors">Serviços</a>
+            <a href="#how-it-works" onclick="toggleMobileMenu()" class="hover:text-primary transition-colors">Como Funciona</a>
+            <a href="#testimonials" onclick="toggleMobileMenu()" class="hover:text-primary transition-colors">Depoimentos</a>
+            <a href="#payment" onclick="toggleMobileMenu()" class="hover:text-primary transition-colors">Pagamento</a>
+            <a href="#faq" onclick="toggleMobileMenu()" class="hover:text-primary transition-colors">FAQ</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="hover:text-primary transition-colors">Contato</a>
+        </div>
+    </div>
+    
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center relative pt-20">
+        <div class="container mx-auto px-4 text-center">
+            <div class="fade-in">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                    <span class="gradient-text">Aumente seu Alcance</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-8">
+                    Seguidores reais para Instagram, TikTok, YouTube, Twitter/X e Kwai
+                </p>
+                <p class="text-lg text-gray-400 mb-8">
+                    ⚡ Entrega em até 2 horas | 🛡️ 100% Garantido | 🎯 Mais de 15.000 clientes satisfeitos
+                </p>
+                
+                <div class="flex flex-col md:flex-row gap-4 justify-center mb-12">
+                    <a href="#services" class="neon-button inline-block">
+                        Comprar Agora
+                    </a>
+                    <a href="#how-it-works" class="border border-primary text-white px-8 py-4 rounded-full hover:bg-primary/20 transition-all">
+                        Saiba Mais
+                    </a>
+                </div>
+                
+                <!-- Counter -->
+                <div class="bg-card/50 backdrop-blur-lg rounded-2xl p-8 max-w-md mx-auto border border-primary/20">
+                    <p class="text-gray-400 mb-2">Seguidores vendidos hoje:</p>
+                    <div class="counter" id="soldCounter">0</div>
+                    <p class="text-sm text-gray-500 mt-2">Atualizado em tempo real</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section id="services" class="py-20 relative">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 gradient-text">Nossos Serviços</h2>
+                <p class="text-gray-400 text-lg">Escolha a rede social e comece a crescer agora</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Instagram -->
+                <div class="service-card fade-in">
+                    <div class="text-5xl mb-4">📸</div>
+                    <h3 class="text-2xl font-bold mb-4">Instagram</h3>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex justify-between">
+                            <span>1.000 seguidores</span>
+                            <span class="text-accent font-bold">R$ 15,90</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>5.000 seguidores</span>
+                            <span class="text-accent font-bold">R$ 49,90</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>10.000 seguidores</span>
+                            <span class="text-accent font-bold">R$ 89,90</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>25.000 seguidores</span>
+                            <span class="text-accent font-bold">R$ 199,90</span>
+                        </li>
+                    </ul>
+                    <button onclick="addToCart('Instagram', 1000, 15.90)" class="w-full neon-button text-sm">
+                        Adicionar ao Carrinho
+                    </button>
+                </div>
+                
+                <!-- TikTok -->
+                <div class="service-card fade-in">
+                    <div class="text-5xl mb-4">🎵</div>
+                    <h3 class="text-2xl font-bold mb-4">TikTok</h3>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex justify-between">
+                            <span>1.000 seguidores</span>
+                            <span class="text-accent font-bold">R$ 19,90</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>5.000 seguidores</span>
+                            <span class="text-accent font-bold">R$ 59,90</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>10.000 seguidores</span>
+                            <span class="text-accent font-bold">R$ 99,90</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>25.000 seguidores</span>
+                            <span class="text-accent font-bold">R$ 219,90</span>
+                        </li>
+                    </ul>
+                    <button onclick="addToCart('TikTok', 1000, 19.90)" class="w-full neon-button text-sm">
+                        Adicionar ao Carrinho
+                    </button>
+                </div>
+                
+                <!-- YouTube -->
+                <div class="service-card fade-in">
+                    <div class="text-5xl mb-4">🎬</div>
+                    <h3 class="text-2xl font-bold mb-4">YouTube</h3>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex justify-between">
+                            <span>100 inscritos</span>
+                            <span class="text-accent font-bold">R$ 14,90</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>500 inscritos</span>
+                            <span class="text-accent font-bold">R$ 39,90</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>1.000 inscritos</span>
+                            <span class="text-accent font-bold">R$ 69,90</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>5.000 inscritos</span>
+                            <span class="text-accent font-bold">R$ 299,90</span>
+                        </li>
+                    </ul>
+                    <button onclick="addToCart('YouTube', 100, 14.90)" class="w-full neon-button text-sm">
+                        Adicionar ao Carrinho
+                    </button>
+                </div>
+                
+                <!-- Twitter/X -->
+                <div class="service-card fade-in">
+                    <div class="text-5xl mb-4">🐦</div>
+                    <h3 class="text-2xl font-bold mb-4">Twitter/X</h3>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex justify-between">
+                            <span>500 seguidores</span>
+                            <span class="text-accent font-bold">R$ 12,90</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>1.000 seguidores</span>
+                            <span class="text-accent font-bold">R$ 19,90</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>5.000 seguidores</span>
+                            <span class="text-accent font-bold">R$ 79,90</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>10.000 seguidores</span>
+                            <span class="text-accent font-bold">R$ 149,90</span>
+                        </li>
+                    </ul>
+                    <button onclick="addToCart('Twitter/X', 500, 12.90)" class="w-full neon-button text-sm">
+                        Adicionar ao Carrinho
+                    </button>
+                </div>
+                
+                <!-- Kwai -->
+                <div class="service-card fade-in">
+                    <div class="text-5xl mb-4">🎥</div>
+                    <h3 class="text-2xl font-bold mb-4">Kwai</h3>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex justify-between">
+                            <span>1.000 seguidores</span>
+                            <span class="text-accent font-bold">R$ 9,90</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>5.000 seguidores</span>
+                            <span class="text-accent font-bold">R$ 29,90</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>10.000 seguidores</span>
+                            <span class="text-accent font-bold">R$ 49,90</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>25.000 seguidores</span>
+                            <span class="text-accent font-bold">R$ 99,90</span>
+                        </li>
+                    </ul>
+                    <button onclick="addToCart('Kwai', 1000, 9.90)" class="w-full neon-button text-sm">
+                        Adicionar ao Carrinho
+                    </button>
+                </div>
+                
+                <!-- Price Calculator -->
+                <div class="service-card fade-in">
+                    <div class="text-5xl mb-4">🧮</div>
+                    <h3 class="text-2xl font-bold mb-4">Calculadora</h3>
+                    <p class="text-gray-400 mb-4">Calcule o preço personalizado</p>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-2">Quantidade de seguidores</label>
+                            <input type="number" id="calcQuantity" min="100" value="1000" 
+                                class="w-full bg-dark border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none"
+                                onchange="calculatePrice()">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-2">Rede Social</label>
+                            <select id="calcPlatform" 
+                                class="w-full bg-dark border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none"
+                                onchange="calculatePrice()">
+                                <option value="instagram">Instagram</option>
+                                <option value="tiktok">TikTok</option>
+                                <option value="youtube">YouTube</option>
+                                <option value="twitter">Twitter/X</option>
+                                <option value="kwai">Kwai</option>
+                            </select>
+                        </div>
+                        
+                        <div class="text-center">
+                            <p class="text-gray-400">Preço estimado:</p>
+                            <div class="price-display" id="calculatedPrice">R$ 15,90</div>
+                            <p class="text-sm text-green-400 mt-2">💰 Desconto automático aplicado!</p>
+                        </div>
+                        
+                        <button onclick="addCalculatedToCart()" class="w-full neon-button text-sm">
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-20 relative">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 gradient-text">Como Funciona</h2>
+                <p class="text-gray-400 text-lg">Simples, rápido e seguro</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center fade-in">
+                    <div class="step-icon">1️⃣</div>
+                    <h3 class="text-xl font-bold mb-2">Escolha o Serviço</h3>
+                    <p class="text-gray-400">Selecione a rede social e a quantidade desejada</p>
+                </div>
+                
+                <div class="text-center fade-in">
+                    <div class="step-icon">2️⃣</div>
+                    <h3 class="text-xl font-bold mb-2">Faça o Pagamento</h3>
+                    <p class="text-gray-400">Pague via Pix com aprovação instantânea</p>
+                </div>
+                
+                <div class="text-center fade-in">
+                    <div class="step-icon">3️⃣</div>
+                    <h3 class="text-xl font-bold mb-2">Confirmação</h3>
+                    <p class="text-gray-400">Envie o comprovante e aguarde a confirmação</p>
+                </div>
+                
+                <div class="text-center fade-in">
+                    <div class="step-icon">4️⃣</div>
+                    <h3 class="text-xl font-bold mb-2">Receba</h3>
+                    <p class="text-gray-400">Seguidores entregues em 24-72 horas</p>
+                </div>
+            </div>
+            
+            <div class="mt-16 bg-card/50 backdrop-blur-lg rounded-2xl p-8 border border-primary/20 fade-in">
+                <h3 class="text-2xl font-bold mb-6 text-center gradient-text">✨ Garantias</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="text-4xl mb-2">🛡️</div>
+                        <h4 class="font-bold mb-2">Garantia de Reposição</h4>
+                        <p class="text-gray-400 text-sm">Se perder seguidores, repomos gratuitamente</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl mb-2">⚡</div>
+                        <h4 class="font-bold mb-2">Entrega Rápida</h4>
+                        <p class="text-gray-400 text-sm">Início em até 2 horas após confirmação</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl mb-2">🔒</div>
+                        <h4 class="font-bold mb-2">100% Seguro</h4>
+                        <p class="text-gray-400 text-sm">Não pedimos senha, totalmente seguro</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 relative">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 gradient-text">Depoimentos</h2>
+                <p class="text-gray-400 text-lg">O que nossos clientes dizem</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="testimonial-card fade-in">
+                    <div class="text-4xl mb-4">⭐⭐⭐⭐⭐</div>
+                    <p class="text-gray-300 mb-4">"Comprei 10k seguidores no Instagram e chegaram em 2 dias! Meu perfil explodiu de engajamento. Super recomendo!"</p>
+                    <div class="flex items-center justify-center">
+                        <div class="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center text-xl font-bold">M</div>
+                        <div class="ml-3">
+                            <p class="font-bold">Maria Silva</p>
+                            <p class="text-sm text-gray-400">Influenciadora</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card fade-in">
+                    <div class="text-4xl mb-4">⭐⭐⭐⭐⭐</div>
+                    <p class="text-gray-300 mb-4">"O melhor serviço que já usei! Pagamento via Pix super rápido e a entrega foi antes do prazo. Até ganhei desconto na segunda compra."</p>
+                    <div class="flex items-center justify-center">
+                        <div class="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center text-xl font-bold">J</div>
+                        <div class="ml-3">
+                            <p class="font-bold">João Santos</p>
+                            <p class="text-sm text-gray-400">Empresário</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card fade-in">
+                    <div class="text-4xl mb-4">⭐⭐⭐⭐⭐</div>
+                    <p class="text-gray-300 mb-4">"Estava com meu TikTok parado, comprei 5k seguidores e agora tenho viralizando várias vezes. Valeu cada centavo!"</p>
+                    <div class="flex items-center justify-center">
+                        <div class="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center text-xl font-bold">A</div>
+                        <div class="ml-3">
+                            <p class="font-bold">Ana Oliveira</p>
+                            <p class="text-sm text-gray-400">Criadora de Conteúdo</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card fade-in">
+                    <div class="text-4xl mb-4">⭐⭐⭐⭐⭐</div>
+                    <p class="text-gray-300 mb-4">"Comprei inscritos pro meu canal do YouTube. O suporte é incrível, responderam em 5 minutos. Já comprei 3 vezes!"</p>
+                    <div class="flex items-center justify-center">
+                        <div class="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center text-xl font-bold">P</div>
+                        <div class="ml-3">
+                            <p class="font-bold">Pedro Costa</p>
+                            <p class="text-sm text-gray-400">YouTuber</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card fade-in">
+                    <div class="text-4xl mb-4">⭐⭐⭐⭐⭐</div>
+                    <p class="text-gray-300 mb-4">"Precisava dar uma boost no meu Twitter profissional. Comprei 1k seguidores e consegui mais clientes. Serviço top!"</p>
+                    <div class="flex items-center justify-center">
+                        <div class="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center text-xl font-bold">C</div>
+                        <div class="ml-3">
+                            <p class="font-bold">Carla Mendes</p>
+                            <p class="text-sm text-gray-400">Consultora</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card fade-in">
+                    <div class="text-4xl mb-4">⭐⭐⭐⭐⭐</div>
+                    <p class="text-gray-300 mb-4">"Kwai está bombando! Comprei seguidores e agora ganho dinheiro com o Kwai. O investimento voltou 10x. Obrigado SocialBoost!"</p>
+                    <div class="flex items-center justify-center">
+                        <div class="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center text-xl font-bold">L</div>
+                        <div class="ml-3">
+                            <p class="font-bold">Lucas Ferreira</p>
+                            <p class="text-sm text-gray-400">Creator Kwai</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Payment Section -->
+    <section id="payment" class="py-20 relative">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 gradient-text">Como Pagar e Receber</h2>
+                <p class="text-gray-400 text-lg">Tudo que você precisa saber sobre pagamentos</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Para o Cliente -->
+                <div class="service-card fade-in">
+                    <h3 class="text-2xl font-bold mb-6 gradient-text">💳 Para o Cliente</h3>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-bold text-lg mb-3 flex items-center">
+                                <span class="text-2xl mr-2">📱</span> Pix (Principal)
+                            </h4>
+                            <p class="text-gray-400 mb-3">O pagamento mais rápido e seguro do Brasil!</p>
+                            <div class="bg-dark/50 rounded-lg p-4 border border-primary/20">
+                                <p class="text-sm text-gray-400 mb-2">Chave Pix (CPF):</p>
+                                <p class="text-accent font-mono text-lg mb-3">000.000.000-00</p>
+                                <p class="text-sm text-gray-400 mb-2">Ou use o QR Code:</p>
+                                <div class="bg-white p-4 rounded-lg w-40 h-40 flex items-center justify-center mx-auto">
+                                    <p class="text-black text-xs text-center">QR Code Pix<br>(Simulado)</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-lg mb-3 flex items-center">
+                                <span class="text-2xl mr-2">💬</span> WhatsApp
+                            </h4>
+                            <p class="text-gray-400 mb-3">Prefere falar com gente? Clique no botão do WhatsApp!</p>
+                            <button onclick="sendWhatsApp()" class="w-full neon-button text-sm">
+                                Pagar via WhatsApp
+                            </button>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-lg mb-3 flex items-center">
+                                <span class="text-2xl mr-2">💳</span> Cartão de Crédito
+                            </h4>
+                            <p class="text-gray-400 mb-3">Aceitamos cartão via link de pagamento seguro</p>
+                            <button onclick="alert('Link de pagamento será enviado via WhatsApp após confirmação do pedido.')" class="w-full border border-primary text-white px-4 py-3 rounded-lg hover:bg-primary/20 transition-all">
+                                Solicitar Link de Pagamento
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Para o Vendedor -->
+                <div class="service-card fade-in">
+                    <h3 class="text-2xl font-bold mb-6 gradient-text">🔧 Para o Vendedor (Você)</h3>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-bold text-lg mb-3 flex items-center">
+                                <span class="text-2xl mr-2">⚙️</span> Configurando seu Pix
+                            </h4>
+                            <ol class="text-gray-400 space-y-2 list-decimal list-inside">
+                                <li>Abra o app do seu banco</li>
+                                <li>Vá em área Pix > Chave Pix</li>
+                                <li>Cadastre uma chave (CPF, telefone, e-mail ou aleatória)</li>
+                                <li>Substitua a chave no código do site</li>
+                                <li>Pronto! Você já pode receber pagamentos</li>
+                            </ol>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-lg mb-3 flex items-center">
+                                <span class="text-2xl mr-2">✅</span> Confirmando Pagamentos
+                            </h4>
+                            <ol class="text-gray-400 space-y-2 list-decimal list-inside">
+                                <li>Cliente faz o Pix e envia comprovante</li>
+                                <li>Verifique no app do seu banco</li>
+                                <li>Confirme o pagamento no painel admin</li>
+                                <li>Marque como "Pago" e depois "Entregue"</li>
+                            </ol>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-lg mb-3 flex items-center">
+                                <span class="text-2xl mr-2">🚀</span> Após Confirmação
+                            </h4>
+                            <ol class="text-gray-400 space-y-2 list-decimal list-inside">
+                                <li>Solicite o usuário/perfil do cliente</li>
+                                <li>Use seu fornecedor de seguidores</li>
+                                <li>Entregue dentro do prazo (24-72h)</li>
+                                <li>Avise o cliente via WhatsApp</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="bg-red-500/10 border border-red-500/30 rounded-lg p-4">
+                            <h4 class="font-bold text-red-400 mb-2 flex items-center">
+                                <span class="text-xl mr-2">⚠️</span> Dicas de Segurança
+                            </h4>
+                            <ul class="text-gray-400 space-y-1 text-sm">
+                                <li>• Nunca entregue antes de confirmar o pagamento</li>
+                                <li>• Sempre verifique o comprovante no banco</li>
+                                <li>• Guarde todos os comprovantes</li>
+                                <li>• Use o painel admin para organizar pedidos</li>
+                            </ul>
+                        </div>
+                        
+                        <a href="admin.html" class="block w-full neon-button text-sm text-center">
+                            Acessar Painel Admin
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ Section -->
+    <section id="faq" class="py-20 relative">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 gradient-text">Perguntas Frequentes</h2>
+                <p class="text-gray-400 text-lg">Tire suas dúvidas</p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto space-y-4">
+                <div class="faq-item fade-in">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span class="font-bold">Quanto tempo demora para cair o Pix?</span>
+                        <span class="text-2xl">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-400">O Pix cai instantaneamente, 24 horas por dia. Assim que você fizer o pagamento, nós recebemos na hora e podemos começar o processo de entrega.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span class="font-bold">Posso parcelar o pagamento?</span>
+                        <span class="text-2xl">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-400">No Pix não é possível parcelar. Porém, se preferir parcelar, podemos gerar um link de pagamento com cartão de crédito em até 12x. Entre em contato via WhatsApp para solicitar.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span class="font-bold">Qual o prazo de entrega dos seguidores?</span>
+                        <span class="text-2xl">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-400">A entrega começa em até 2 horas após a confirmação do pagamento. O processo completo pode levar de 24 a 72 horas, dependendo da quantidade solicitada.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span class="font-bold">Os seguidores são reais?</span>
+                        <span class="text-2xl">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-400">Oferecemos seguidores reais e de alta qualidade. Eles têm perfis completos, foto e atividade. Também temos opções de seguidores bot para quem busca quantidade maior com menor custo.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span class="font-bold">E se eu perder seguidores depois?</span>
+                        <span class="text-2xl">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-400">Oferecemos garantia de reposição! Se você perder seguidores dentro de 30 dias, nós repomos gratuitamente. Basta entrar em contato via WhatsApp.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span class="font-bold">Vocês pedem minha senha?</span>
+                        <span class="text-2xl">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-400">NUNCA pedimos sua senha! Precisamos apenas do seu usuário ou link do perfil. Seu acesso permanece 100% seguro e exclusivo.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span class="font-bold">Tenho direito a reembolso?</span>
+                        <span class="text-2xl">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-400">Sim! Se não entregarmos o serviço conforme prometido, você tem direito a reembolso integral. Basta entrar em contato via WhatsApp com o comprovante de pagamento.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span class="font-bold">Como faço para acompanhar meu pedido?</span>
+                        <span class="text-2xl">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-400">Você pode acompanhar pelo WhatsApp! Basta salvar nosso contato e enviar mensagem. Também enviaremos atualizações sobre o status do seu pedido.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 relative">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 gradient-text">Entre em Contato</h2>
+                <p class="text-gray-400 text-lg">Estamos aqui para ajudar</p>
+            </div>
+            
+            <div class="max-w-2xl mx-auto">
+                <div class="service-card fade-in">
+                    <form onsubmit="submitForm(event)">
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">Nome</label>
+                                <input type="text" required 
+                                    class="w-full bg-dark border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none"
+                                    placeholder="Seu nome">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">WhatsApp</label>
+                                <input type="tel" required 
+                                    class="w-full bg-dark border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none"
+                                    placeholder="(11) 99999-9999">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">Mensagem</label>
+                                <textarea required rows="4"
+                                    class="w-full bg-dark border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none resize-none"
+                                    placeholder="Como podemos ajudar?"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full neon-button">
+                                Enviar Mensagem
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="py-12 border-t border-primary/20">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4 gradient-text">BoostBR</h3>
+                    <p class="text-gray-400">Aumente seu alcance nas redes sociais com seguidores de qualidade.</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Links Rápidos</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#services" class="hover:text-primary transition-colors">Serviços</a></li>
+                        <li><a href="#how-it-works" class="hover:text-primary transition-colors">Como Funciona</a></li>
+                        <li><a href="#payment" class="hover:text-primary transition-colors">Pagamento</a></li>
+                        <li><a href="#faq" class="hover:text-primary transition-colors">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Redes Sociais</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-primary transition-colors">Instagram</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">TikTok</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">YouTube</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Twitter/X</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-primary/20 pt-8 text-center text-gray-400">
+                <p class="mb-2">© 2024 BoostBR. Todos os direitos reservados.</p>
+                <p class="text-sm">Este site é apenas para fins demonstrativos. Os serviços oferecidos são simulados.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- WhatsApp Float Button -->
+    <div class="whatsapp-float" onclick="sendWhatsApp()">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+    </div>
+    
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold gradient-text">🛒 Carrinho</h3>
+                <button onclick="closeCart()" class="text-2xl hover:text-primary">✕</button>
+            </div>
+            
+            <div id="cartItems" class="space-y-4 mb-6">
+                <p class="text-gray-400 text-center py-8">Seu carrinho está vazio</p>
+            </div>
+            
+            <div id="cartTotal" class="border-t border-primary/20 pt-4 mb-6 hidden">
+                <div class="flex justify-between items-center text-xl">
+                    <span>Total:</span>
+                    <span class="text-accent font-bold" id="totalPrice">R$ 0,00</span>
+                </div>
+            </div>
+            
+            <div id="cartActions" class="space-y-3 hidden">
+                <button onclick="checkoutWhatsApp()" class="w-full neon-button text-sm">
+                    Comprar via WhatsApp
+                </button>
+                <button onclick="clearCart()" class="w-full border border-red-500 text-red-400 px-4 py-3 rounded-lg hover:bg-red-500/20 transition-all">
+                    Limpar Carrinho
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

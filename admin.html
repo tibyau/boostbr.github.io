@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin - BoostBR</title>
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#8B00FF',
+                        secondary: '#FF00FF',
+                        accent: '#00D4FF',
+                        dark: '#0a0a0f',
+                        darker: '#050508',
+                        card: '#12121a'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a0a0f 0%, #12121a 50%, #0a0a0f 100%);
+            color: #ffffff;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #8B00FF, #FF00FF, #00D4FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .status-pending {
+            background: #f59e0b;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+        
+        .status-paid {
+            background: #10b981;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+        
+        .status-delivered {
+            background: #8B00FF;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+        
+        .order-card {
+            background: linear-gradient(145deg, #12121a, #1a1a2e);
+            border: 1px solid rgba(139, 0, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .neon-button {
+            background: linear-gradient(135deg, #8B00FF, #FF00FF);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .neon-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(139, 0, 255, 0.5);
+        }
+        
+        .qr-code-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Header -->
+    <header class="bg-dark/90 backdrop-blur-lg border-b border-primary/20 py-4">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold gradient-text">🔧 Painel Admin - BoostBR</h1>
+                <a href="index.html" class="text-gray-400 hover:text-primary transition-colors">
+                    ← Voltar ao Site
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container mx-auto px-4 py-8">
+        <!-- Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="order-card text-center">
+                <p class="text-gray-400 text-sm">Total de Pedidos</p>
+                <p class="text-3xl font-bold gradient-text" id="totalOrders">0</p>
+            </div>
+            <div class="order-card text-center">
+                <p class="text-gray-400 text-sm">Pendentes</p>
+                <p class="text-3xl font-bold text-yellow-500" id="pendingOrders">0</p>
+            </div>
+            <div class="order-card text-center">
+                <p class="text-gray-400 text-sm">Pagos</p>
+                <p class="text-3xl font-bold text-green-500" id="paidOrders">0</p>
+            </div>
+            <div class="order-card text-center">
+                <p class="text-gray-400 text-sm">Entregues</p>
+                <p class="text-3xl font-bold text-primary" id="deliveredOrders">0</p>
+            </div>
+        </div>
+        
+        <!-- QR Code Generator -->
+        <div class="order-card mb-8">
+            <h2 class="text-xl font-bold mb-4 gradient-text">📱 Gerador de QR Code Pix</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-2">Chave Pix</label>
+                            <input type="text" id="pixKey" placeholder="000.000.000-00"
+                                class="w-full bg-dark border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-2">Nome do Beneficiário</label>
+                            <input type="text" id="pixName" placeholder="Seu Nome"
+                                class="w-full bg-dark border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-2">Cidade</label>
+                            <input type="text" id="pixCity" placeholder="São Paulo"
+                                class="w-full bg-dark border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-2">Valor (R$)</label>
+                            <input type="number" id="pixValue" placeholder="0.00" step="0.01"
+                                class="w-full bg-dark border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-2">Descrição (opcional)</label>
+                            <input type="text" id="pixDescription" placeholder="Pagamento de seguidores"
+                                class="w-full bg-dark border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none">
+                        </div>
+                        <button onclick="generateQRCode()" class="w-full neon-button">
+                            Gerar QR Code
+                        </button>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center justify-center">
+                    <div id="qrCodeDisplay" class="qr-code-container hidden">
+                        <canvas id="qrCanvas"></canvas>
+                        <p class="text-black text-center mt-2 text-sm">Escaneie para pagar</p>
+                    </div>
+                    <p id="qrPlaceholder" class="text-gray-400 text-center">
+                        Preencha os dados e clique em "Gerar QR Code"
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Add Order Manual -->
+        <div class="order-card mb-8">
+            <h2 class="text-xl font-bold mb-4 gradient-text">➕ Adicionar Pedido Manual</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">Nome do Cliente</label>
+                    <input type="text" id="clientName" placeholder="Nome"
+                        class="w-full bg-dark border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">WhatsApp</label>
+                    <input type="tel" id="clientPhone" placeholder="(11) 99999-9999"
+                        class="w-full bg-dark border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">Serviço</label>
+                    <select id="clientService"
+                        class="w-full bg-dark border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none">
+                        <option value="Instagram">Instagram</option>
+                        <option value="TikTok">TikTok</option>
+                        <option value="YouTube">YouTube</option>
+                        <option value="Twitter/X">Twitter/X</option>
+                        <option value="Kwai">Kwai</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">Valor (R$)</label>
+                    <input type="number" id="clientValue" placeholder="0.00" step="0.01"
+                        class="w-full bg-dark border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none">
+                </div>
+            </div>
+            <div class="mt-4">
+                <label class="block text-sm text-gray-400 mb-2">Quantidade de Seguidores</label>
+                <input type="number" id="clientQuantity" placeholder="1000"
+                    class="w-full bg-dark border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none">
+            </div>
+            <div class="mt-4">
+                <label class="block text-sm text-gray-400 mb-2">Usuário/Perfil do Cliente</label>
+                <input type="text" id="clientProfile" placeholder="@usuario"
+                    class="w-full bg-dark border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none">
+            </div>
+            <button onclick="addManualOrder()" class="w-full neon-button mt-4">
+                Adicionar Pedido
+            </button>
+        </div>
+        
+        <!-- Orders List -->
+        <div class="order-card">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold gradient-text">📋 Lista de Pedidos</h2>
+                <div class="flex gap-2">
+                    <button onclick="filterOrders('all')" class="px-4 py-2 rounded-lg bg-primary/20 hover:bg-primary/40 transition-all text-sm">
+                        Todos
+                    </button>
+                    <button onclick="filterOrders('pending')" class="px-4 py-2 rounded-lg bg-yellow-500/20 hover:bg-yellow-500/40 transition-all text-sm">
+                        Pendentes
+                    </button>
+                    <button onclick="filterOrders('paid')" class="px-4 py-2 rounded-lg bg-green-500/20 hover:bg-green-500/40 transition-all text-sm">
+                        Pagos
+                    </button>
+                    <button onclick="filterOrders('delivered')" class="px-4 py-2 rounded-lg bg-primary/20 hover:bg-primary/40 transition-all text-sm">
+                        Entregues
+                    </button>
+                </div>
+            </div>
+            
+            <div id="ordersList">
+                <p class="text-gray-400 text-center py-8">Nenhum pedido encontrado</p>
+            </div>
+        </div>
+    </main>
+    
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script>
+        // Initialize orders from localStorage
+        let orders = JSON.parse(localStorage.getItem('adminOrders')) || [];
+        let currentFilter = 'all';
+        
+        // Load orders on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStats();
+            renderOrders();
+        });
+        
+        // Update statistics
+        function updateStats() {
+            const total = orders.length;
+            const pending = orders.filter(o => o.status === 'pending').length;
+            const paid = orders.filter(o => o.status === 'paid').length;
+            const delivered = orders.filter(o => o.status === 'delivered').length;
+            
+            document.getElementById('totalOrders').textContent = total;
+            document.getElementById('pendingOrders').textContent = pending;
+            document.getElementById('paidOrders').textContent = paid;
+            document.getElementById('deliveredOrders').textContent = delivered;
+        }
+        
+        // Render orders list
+        function renderOrders() {
+            const container = document.getElementById('ordersList');
+            let filteredOrders = orders;
+            
+            if (currentFilter !== 'all') {
+                filteredOrders = orders.filter(o => o.status === currentFilter);
+            }
+            
+            if (filteredOrders.length === 0) {
+                container.innerHTML = '<p class="text-gray-400 text-center py-8">Nenhum pedido encontrado</p>';
+                return;
+            }
+            
+            container.innerHTML = filteredOrders.map((order, index) => `
+                <div class="order-card">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="font-bold text-lg">${order.client}</h3>
+                            <p class="text-gray-400 text-sm">${order.phone}</p>
+                        </div>
+                        <span class="status-${order.status}">${getStatusLabel(order.status)}</span>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                        <div>
+                            <p class="text-gray-400 text-xs">Serviço</p>
+                            <p class="font-semibold">${order.service}</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-400 text-xs">Quantidade</p>
+                            <p class="font-semibold">${order.quantity}</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-400 text-xs">Valor</p>
+                            <p class="font-semibold text-accent">R$ ${order.value.toFixed(2)}</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-400 text-xs">Perfil</p>
+                            <p class="font-semibold">${order.profile || 'N/A'}</p>
+                        </div>
+                    </div>
+                    <div class="text-sm text-gray-400 mb-4">
+                        <p>Data: ${new Date(order.date).toLocaleString('pt-BR')}</p>
+                    </div>
+                    <div class="flex gap-2 flex-wrap">
+                        ${order.status === 'pending' ? `
+                            <button onclick="updateOrderStatus('${order.id}', 'paid')" class="neon-button text-sm">
+                                ✅ Confirmar Pagamento
+                            </button>
+                        ` : ''}
+                        ${order.status === 'paid' ? `
+                            <button onclick="updateOrderStatus('${order.id}', 'delivered')" class="neon-button text-sm">
+                                🚀 Marcar como Entregue
+                            </button>
+                        ` : ''}
+                        <button onclick="deleteOrder('${order.id}')" class="px-4 py-2 rounded-lg bg-red-500/20 hover:bg-red-500/40 transition-all text-sm text-red-400">
+                            🗑️ Excluir
+                        </button>
+                        <button onclick="sendWhatsAppOrder('${order.id}')" class="px-4 py-2 rounded-lg bg-green-500/20 hover:bg-green-500/40 transition-all text-sm text-green-400">
+                            💬 WhatsApp
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Get status label
+        function getStatusLabel(status) {
+            const labels = {
+                'pending': 'Pendente',
+                'paid': 'Pago',
+                'delivered': 'Entregue'
+            };
+            return labels[status] || status;
+        }
+        
+        // Filter orders
+        function filterOrders(status) {
+            currentFilter = status;
+            renderOrders();
+        }
+        
+        // Add manual order
+        function addManualOrder() {
+            const client = document.getElementById('clientName').value;
+            const phone = document.getElementById('clientPhone').value;
+            const service = document.getElementById('clientService').value;
+            const value = parseFloat(document.getElementById('clientValue').value);
+            const quantity = parseInt(document.getElementById('clientQuantity').value);
+            const profile = document.getElementById('clientProfile').value;
+            
+            if (!client || !phone || !value || !quantity) {
+                alert('Preencha todos os campos obrigatórios!');
+                return;
+            }
+            
+            const order = {
+                id: Date.now().toString(),
+                client,
+                phone,
+                service,
+                value,
+                quantity,
+                profile,
+                status: 'pending',
+                date: new Date().toISOString()
+            };
+            
+            orders.unshift(order);
+            saveOrders();
+            updateStats();
+            renderOrders();
+            
+            // Clear form
+            document.getElementById('clientName').value = '';
+            document.getElementById('clientPhone').value = '';
+            document.getElementById('clientValue').value = '';
+            document.getElementById('clientQuantity').value = '';
+            document.getElementById('clientProfile').value = '';
+            
+            alert('Pedido adicionado com sucesso!');
+        }
+        
+        // Update order status
+        function updateOrderStatus(orderId, newStatus) {
+            const order = orders.find(o => o.id === orderId);
+            if (order) {
+                order.status = newStatus;
+                saveOrders();
+                updateStats();
+                renderOrders();
+                alert(`Status atualizado para: ${getStatusLabel(newStatus)}`);
+            }
+        }
+        
+        // Delete order
+        function deleteOrder(orderId) {
+            if (confirm('Tem certeza que deseja excluir este pedido?')) {
+                orders = orders.filter(o => o.id !== orderId);
+                saveOrders();
+                updateStats();
+                renderOrders();
+            }
+        }
+        
+        // Send WhatsApp message for order
+        function sendWhatsAppOrder(orderId) {
+            const order = orders.find(o => o.id === orderId);
+            if (order) {
+                const phone = order.phone.replace(/\D/g, '');
+                const message = `Olá ${order.client}! 👋\n\nSobre seu pedido de ${order.service} (${order.quantity} seguidores) no valor de R$ ${order.value.toFixed(2)}:\n\n`;
+                
+                if (order.status === 'pending') {
+                    message += '📝 Status: Aguardando pagamento\n\nPor favor, faça o Pix e envie o comprovante.';
+                } else if (order.status === 'paid') {
+                    message += '✅ Status: Pagamento confirmado!\n\nSeu pedido está sendo processado. Entrega em 24-72 horas.';
+                } else if (order.status === 'delivered') {
+                    message += '🚀 Status: Entregue!\n\nSeus seguidores já foram entregues. Obrigado pela preferência!';
+                }
+                
+                const whatsappUrl = `https://wa.me/55${phone}?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+            }
+        }
+        
+        // Save orders to localStorage
+        function saveOrders() {
+            localStorage.setItem('adminOrders', JSON.stringify(orders));
+        }
+        
+        // Generate QR Code
+        function generateQRCode() {
+            const pixKey = document.getElementById('pixKey').value;
+            const pixName = document.getElementById('pixName').value;
+            const pixCity = document.getElementById('pixCity').value;
+            const pixValue = document.getElementById('pixValue').value;
+            const pixDescription = document.getElementById('pixDescription').value;
+            
+            if (!pixKey || !pixName || !pixCity) {
+                alert('Preencha chave, nome e cidade!');
+                return;
+            }
+            
+            // Create Pix payload (simplified version)
+            const payload = createPixPayload(pixKey, pixName, pixCity, pixValue, pixDescription);
+            
+            // Generate QR Code
+            const canvas = document.getElementById('qrCanvas');
+            QRCode.toCanvas(canvas, payload, function(error) {
+                if (error) {
+                    console.error(error);
+                    alert('Erro ao gerar QR Code');
+                } else {
+                    document.getElementById('qrCodeDisplay').classList.remove('hidden');
+                    document.getElementById('qrPlaceholder').classList.add('hidden');
+                }
+            });
+        }
+        
+        // Create Pix payload (simplified)
+        function createPixPayload(key, name, city, value, description) {
+            // This is a simplified version. For production, use a proper Pix library
+            const payload = `00020126580014BR.GOV.BCB.PIX0136${key}5204000053039865404${value || '0.00'}5802BR5913${name}6008${city.toUpperCase()}62070503***6304`;
+            
+            // Calculate CRC16 (simplified - in production use proper implementation)
+            const crc = calculateCRC16(payload);
+            return payload + crc;
+        }
+        
+        // Calculate CRC16 (simplified)
+        function calculateCRC16(str) {
+            let crc = 0xFFFF;
+            for (let i = 0; i < str.length; i++) {
+                crc ^= str.charCodeAt(i);
+                for (let j = 0; j < 8; j++) {
+                    if (crc & 0x0001) {
+                        crc = (crc >> 1) ^ 0xA001;
+                    } else {
+                        crc = crc >> 1;
+                    }
+                }
+            }
+            return crc.toString(16).toUpperCase().padStart(4, '0');
+        }
+    </script>
+</body>
+</html>
